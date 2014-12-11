@@ -9,11 +9,12 @@ against its Dockerfile.
 This is a basic debian image that provides `git` so DotCI can run `git
 clone`.
 
-It also provides a wrapper around `git` command, that executes the
-original `git` with all the parameters given and after that it sets
-the datetime of all files in `/app` directory [0] to a predefined
-datetime. It finally adds `/app/.git` directory to `.dockerignore` so
-it's not send as part of the context to the Docker daemon.
+It also provides a wrapper around `docker` command, that executes the
+original `docker` with all the parameters given except that when the
+docker command is `build`, it sets the datetime of all files in
+current `.` directory to a predefined datetime. It also adds
+`/app/.git` directory to `.dockerignore` so it's not send as part of
+the context to the Docker daemon.
 
 This is needed to take advantage of docker caching
 mechanism. Otherwise because DotCI runs `git clone` on every test run,
@@ -28,5 +29,3 @@ An automated build of this repository can be found in
 An example project that uses DotCI with Dockerfile build and this base
 test runner can be found in
 [glogiotatidis/dotci-reference-dockerfile](https://github.com/glogiotatidis/dotci-reference-dockerfile).
-
-[0] DotCI always checkouts to `/app` directory.

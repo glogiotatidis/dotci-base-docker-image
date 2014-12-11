@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "$1" == "build" ];
+then
+    if [ ! -z $2 ];
+    then
+        echo ".git" >> "${@: -1}"/.dockerignore
+        find "${@: -1}" | xargs touch -t 201401010000.00
+    fi
+fi
+
+/bin/docker "$@"
