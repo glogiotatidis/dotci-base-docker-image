@@ -4,5 +4,7 @@
 # docker caching.
 
 /usr/bin/git $@
-echo ".git" >> /app/.dockerignore 
-find /app | xargs touch -t 201401010000.00
+if [ -d "/app" ]; then
+  echo ".git" >> /app/.dockerignore 
+  find /app | xargs touch -t 201401010000.00
+fi
